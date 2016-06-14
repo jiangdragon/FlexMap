@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute"
+	creationComplete="onLoad()"
+	verticalScrollPolicy="off"
+	horizontalScrollPolicy="off"
+	>
+<mx:Script>
+	<![CDATA[
+		import mx.controls.Image;
+		import mx.graphics.ImageSnapshot;
+		import jsoft.map.acete.MapHotAcete;
+		import jsoft.map.dispatch.HotEventDispatcher;
+		import mx.controls.Alert;
+		import flash.system.Security;
+		import jsoft.map.dispatch.MapDispatcher;
+		import jsoft.map.dispatch.DispatchManager;
+		import jsoft.map.test.TestManager;
+
+		private function onLoad():void{
+			Security.allowDomain("*");
+			Security.allowInsecureDomain("*");
+			AppContext.initContext(this);
+			//测试加载地图--小江
+			MapDispatcher.addMapConfig("矢量","http://10.71.197.140:9001/map/image");
+			MapDispatcher.showMapConfig("矢量");
+			MapDispatcher.setMapPan();//设置鼠标动作--小江
+			//test();
+			addEventListener(MouseEvent.CLICK,test);
+		}
+	  	private function drawTest():void {
+	  		var x:String = "84.88986860286458";
+	  		var y:String = "45.57648472070313";
+	  		var x1:String = "84.88847589939026";
+	  		var y1:String = "45.578560378191696";
+	  		var xAry:String = "84.88847589939026,84.88847589939026,84.88925658365093,84.92321634899011";
+	  		var yAry:String = "45.578560378191696,45.578560378191696,45.59300303701411,45.58909961571075";
+	  		var xPoly:String = "84.82787424348959,84.83820663671875,85.12751364713542,85.12234745052083";
+	  		var yPoly:String = "45.63847908007813,45.467994591796874,45.47316078841146,45.64364527669271";
+	  		//DispatchManager.sendMessage("draw","Line",xAry,yAry,"red","1","none","none","solid","id","group","","","","","","");
+	  		//DispatchManager.sendMessage("draw","pointimage",x1,y1,"jsoft/map/cursor/loading.gif","20","20","moveId","group","","","","","","","","");
+	  		//DispatchManager.sendMessage("draw","moveById","moveId","30",xAry,yAry,"","","","","","","","","","","");
+	  		//DispatchManager.sendMessage("draw","pointHotimage",x,y,"jsoft/map/cursor/c_size1.gif","jsoft/map/cursor/c_wait.gif","50","50","id","group","","","","","","","");
+	  		//DispatchManager.sendMessage("draw","sdpoint","84","45","blue","white","1","1","1","test1","group1","","","","","","");
+	   		//DispatchManager.sendMessage("draw","drawCircle","84.1","45","50","red","blue","2","0.2","circle","ccc1","","","","","","");
+	   		//DispatchManager.sendMessage("draw","LineDyn","84,84.5,84.5","45,45,45.5","red","yellow","2","none","none","solid","-1","ss","dd","","","","");
+	   		//DispatchManager.sendMessage("draw","PolygonDyn",xPoly,yPoly,"red","yellow","blue","green","1","0.2","-1","ss","dd","","","","");
+	  		//DispatchManager.sendMessage("draw","Line","84.6,84.7,84.7,84.6","45.3,45.3,45.6,45.6","red","2","","","","","","","","","","","");
+	  		//DispatchManager.sendMessage("draw","LineMeter","84.6,84.7,84.7,84.6","45.3,45.3,45.6,45.6","red","0.2","10000","","","","","","","","","","");
+	  		//DispatchManager.sendMessage("draw","drawLegend","84.6","45.3","horizontal","2","","","circle,image,ellipse,image","red,jsoft/map/cursor/legend1.png,blue,jsoft/map/cursor/legend2.png","小江,李四,王五,小四","","","","","","");
+	  		DispatchManager.sendMessage("draw","setCursor","start","","","","","","","","","","","","","","");
+	  		//MapDispatcher.refresh();
+	  		//DispatchManager.getMessage("draw","removeById","id","","","","","","","","","","","","","","");
+	  		//MapDispatcher.refresh();
+	  		//trace(DispatchManager.getMessage("draw","getSymbolIds","","","","","","","","","","","","","","",""));
+	  		//trace("===============");
+	  		//DispatchManager.sendMessage("draw","setSymbolIdVisible","moveId","0","","","","","","","","","","","","","");
+	  		//MapDispatcher.refresh();
+	  		//trace(DispatchManager.getMessage("draw","getSymbolIds","","","","","","","","","","","","","","",""));
+	  	}
+	  	private function hotTest():void{
+	  		trace("hotTest");
+	  		var x:String = "84.88986860286458";
+	  		var y:String = "45.57648472070313";
+	  		var x1:String = "84.7607136875";
+	  		var y1:String = "44.94620873372396";
+	  		var xAry:String = "84.88470240625,84.88470240625,85.2876657421875,85.5976375390625";
+	  		var yAry:String = "45.58681711393229,45.58681711393229,45.76763399544271,45.684974849609375";
+	  		var xPoly:String = "84.82787424348959,84.83820663671875,85.12751364713542,85.12234745052083,84.82787424348959";
+	  		var yPoly:String = "45.63847908007813,45.467994591796874,45.47316078841146,45.64364527669271,45.63847908007813";
+	  		var flare:String = "7||color||0XFF0000||lightColor||0xFFFF00||weight||4||type||0";
+	  		var lineFlare:String = "11||color||0XFF0000||lightColor||0xFFFF00||weight||2||startArrow||diamond||endArrow||none||dashStyle||solid";
+	  		var polyFlare:String = "11||color||0xF00000||fillColor||0xFF0000||lightColor||0xFFF000||lightFillColor||0xFFFF00||weight||3||opacity||0.3";
+	  		var imageUrl:String = "http://10.71.197.140:8080/portal/module/map/standard/warning.gif";
+	  		var videoUrl:String = "http://10.71.197.140:8080/portal/module/map/standard/test.flv";
+	  		var listWin:String = "5||txt||姓名：||小李||vid||||" + videoUrl;
+	  		var xmlStr:String = "<root><item label='**构造' enabled='false'/><item label='日产曲线'><item label='原油' callBack='jiang'/><item label='天然气' callBack='jiang1'/></item></root>"
+	  		DispatchManager.sendMessage("hot","addPointHot","tip","1",x,y,"小李","4","","id1","group","","","","","","");
+	  		//DispatchManager.sendMessage("hot","addPointHot","tip","1",x1,y1,"小江","4","","id2","group","","","","","","");
+	  		//DispatchManager.sendMessage("hot","addPointHot","image","1",x,y,imageUrl,"4","30","30","0,1","id","group","","","","");
+	  		//DispatchManager.sendMessage("hot","addPointHot","video","1",x,y,videoUrl,"4","100","100","0,1","id","group","","","","");
+	  		DispatchManager.sendMessage("hot","addPointHot","listWin","2",x,y,"提示",listWin,"4","200","200","","id","group","","","");
+	  		//DispatchManager.sendMessage("hot","addLineHot","tip","1",xAry,yAry,"小李","4","0,1","id","group","","","","","","");
+	  		//DispatchManager.sendMessage("hot","addLineHot","image","1",xAry,yAry,imageUrl,"4","30","30","0,1","id","group","","","","");
+	  		//DispatchManager.sendMessage("hot","addLineHot","video","1",xAry,yAry,videoUrl,"4","100","100","0,1","id","group","","","","");
+	  		//DispatchManager.sendMessage("hot","addLineHot","listWin","1",xAry,yAry,"提示",listWin,"4","200","200","0,1","id","group","","","");
+	  		//DispatchManager.sendMessage("hot","addPolyHot","tip","1",xPoly,yPoly,"小李","4","0,1","id","group","","","","","","");
+	  		//DispatchManager.sendMessage("hot","addPolyHot","image","1",xPoly,yPoly,imageUrl,"4","30","30","0,1","id","group","","","","");
+	  		//DispatchManager.sendMessage("hot","addPolyHot","video","1",xPoly,yPoly,videoUrl,"4","100","100","0,1","id","group","","","","");
+	  		//DispatchManager.sendMessage("hot","addPolyHot","listWin","1",xPoly,yPoly,"提示",listWin,"4","200","200","0,1","id","group","","","");
+	  		
+	  		//DispatchManager.sendMessage("hot","addPointHotFlare","tip",flare,x,y,"小李","4","2","id","group","","","","","","");
+	  		//DispatchManager.sendMessage("hot","addPointHotFlare","image",flare,x,y,imageUrl,"4","30","30","-1","id","group","","","","");
+	  		//DispatchManager.sendMessage("hot","addPointHotFlare","video",flare,x,y,videoUrl,"4","100","100","-1","id","group","","","","");
+	  		//DispatchManager.sendMessage("hot","addPointHotFlare","listWin",flare,x,y,"提示",listWin,"4","200","200","-1","id","group","","","");
+	  		//DispatchManager.sendMessage("hot","addLineHotFlare","tip",lineFlare,xAry,yAry,"小李","4","1,2","id","group","","","","","","");
+	  		//DispatchManager.sendMessage("hot","addLineHotFlare","image",lineFlare,xAry,yAry,imageUrl,"4","30","30","-1","id","group","","","","");
+	  		//DispatchManager.sendMessage("hot","addLineHotFlare","video",lineFlare,xAry,yAry,videoUrl,"4","100","100","-1","id","group","","","","");
+	  		//DispatchManager.sendMessage("hot","addLineHotFlare","listWin",lineFlare,xAry,yAry,"提示",listWin,"4","200","200","-1","id","group","","","");
+	  		//DispatchManager.sendMessage("hot","addPolyHotFlare","tip",polyFlare,xPoly,yPoly,"小李","4","1,2","id","group","","","","","","");
+	  		//DispatchManager.sendMessage("hot","addPolyHotFlare","image",polyFlare,xPoly,yPoly,imageUrl,"4","30","30","-1","id","group","","","","");
+	  		//DispatchManager.sendMessage("hot","addPolyHotFlare","video",polyFlare,xPoly,yPoly,videoUrl,"4","100","100","-1","id","group","","","","");
+	  		//DispatchManager.sendMessage("hot","addPolyHotFlare","listWin",polyFlare,xPoly,yPoly,"提示",listWin,"4","200","200","-1","id","group","","","");
+	  		
+	  		//DispatchManager.sendMessage("hot","addPointLevel",x,y,"2","4","id","group","","","","","","","","","");
+	  		//DispatchManager.sendMessage("hot","addLineLevel",xAry,yAry,"2","4","id","group","","","","","","","","","");
+	  		//DispatchManager.sendMessage("hot","addPolyLevel",xPoly,yPoly,"2","4","id","group","","","","","","","","","");
+	  		
+	  		//DispatchManager.sendMessage("hot","addPointMenu",x,y,xmlStr,"","4","id","group","","","","","","","","");
+	  		
+	  		//DispatchManager.sendMessage("hot","showPointHot","tip","1",x,y,"小李","","","id","group","","","","","","");
+	  		//DispatchManager.sendMessage("hot","showPointHotFlare","tip",flare,x,y,"小李","4","2","id","","","","","","","");
+	  		//DispatchManager.sendMessage("hot","removeHotById","id1","","","","","","","","","","","","","","");
+	  		//DispatchManager.sendMessage("hot","setHotGroupVisible","group","0","","","","","","","","","","","","","");
+	  		MapDispatcher.refresh();
+	  	}
+	  	private function vectorTest():void{
+	  		var x:String = "84.88986860286458";
+	  		var y:String = "45.57648472070313";
+	  		var xAry:String = "84.88470240625,84.88470240625,85.2876657421875,85.5976375390625";
+	  		var yAry:String = "45.58681711393229,45.58681711393229,45.76763399544271,45.684974849609375";
+	  		var imageUrl:String = "http://10.71.197.140:8080/portal/module/map/standard/warning.gif";
+	  		//DispatchManager.sendMessage("vector","createPointImage",imageUrl,"100","100","id","group","","","","","","","","","","");
+	  		//DispatchManager.sendMessage("vector","createCircle","5","black","red","3","0.2","ss","ss","","","","","","","","");
+	  		//DispatchManager.sendMessage("vector","createMultiArrow","blue","2","","","","","","","","","","","","","");
+	  		//DispatchManager.sendMessage("vector","createCircle","5","black","red","3","0.2","ss","ss","","","","","","","","");
+	  		//DispatchManager.sendMessage("vector","createSarrow","","","","","","","","","","","","","","","");
+	  		//DispatchManager.sendMessage("vector","createEqualSarrow","","","","","","","","","","","","","","","");
+	  		//DispatchManager.sendMessage("vector","createTailSarrow","","","","","","","","","","","","","","","");
+	  		//DispatchManager.sendMessage("vector","createXSarrow","","","","","","","","","","","","","","","");
+	  		//DispatchManager.sendMessage("vector","createDoubleSarrow","","","","","","","","","","","","","","","");
+	  		//DispatchManager.sendMessage("vector","createPoly","5","black","red","3","0.2","id","group","","","","","","","","");
+	  		DispatchManager.sendMessage("vector","addPolyEx",xAry,yAry,"5","black","red","3","0.2",imageUrl,"id","group","","","","","");
+	  		MapDispatcher.refresh();
+	  	}
+	  	private function measureTest():void{
+	  		//DispatchManager.sendMessage("map","mesure","","","","","","","","","","","","","","","");
+	  	}
+	  	private function overLayTest():void{
+	  		//DispatchManager.sendMessage("overlay","spoint","84.1","45","white","blue","10","1","-1","test1","group1","","","","","","");
+	   		//DispatchManager.sendMessage("overlay","sepoint","84.4","45.1","red","yellow","blue","green","12","2","1","-1","ss","dd","","","");
+	   		//DispatchManager.sendMessage("overlay","Polygon","84,84,84.5,84","45,45.5,45.5,45","red","yellow","blue","green","2","0.2","-1","ss","dd","","","","");
+	   		//DispatchManager.sendMessage("overlay","Polygon","84,84.5,84.5,84","45,45.5,45,45","1","url","提示123||180||180||txt||小江||123||txt||123||456werwerwer","red","yellow","blue","green","2","0.2","ss","dd","","");
+	   		//DispatchManager.sendMessage("overlay","Line","84,84.4,84.4,84","45,45,45.4,45.4","red","yellow","2","diamond","classic","dash","-1","ss","dd","","","","");
+	   		//MapDispatcher.refresh();
+	  	}
+	  	private function captureTest():void{
+	  		DispatchManager.sendMessage("map","captureMapBox","84.80429211328123","45.32892550878907","85.26574156835937","45.67301209667969","","","","","","","","","","","");
+	  	}
+	   	private function test(event:MouseEvent):void{
+	   		//DispatchManager.sendMessage("query","circle","","layername","84","45","1","0","","1","","","","","","","");
+	   		//hotTest();
+	   		drawTest();
+	   		//vectorTest();
+	   		//captureTest();
+	   		removeEventListener(MouseEvent.CLICK,test);
+	   	}
+	]]>
+</mx:Script>
+</mx:Application>

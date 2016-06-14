@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" 
+	creationComplete="onLoad()"
+	verticalScrollPolicy="off"
+	horizontalScrollPolicy="off"
+	>
+ <mx:Script>
+  <![CDATA[
+  	import mx.controls.Alert;
+  	import jsoft.map.test.TestManager;
+  	import flash.system.Security;
+      
+   private function onLoad():void{
+   	// 初始化系统内部变量
+   	Security.allowDomain("*");
+   	Security.allowInsecureDomain("*");
+   	//mx.controls.Alert.show("onLoad","JFlexMap");
+    AppContext.initContext(this);
+   	//mx.controls.Alert.show("initContext","JFlexMap");
+   	//AppContext.getAppUtil().alert("onLoad");
+    //jsoft.map.test.TestManager.test();
+   }
+
+  ]]>
+ </mx:Script>
+ 
+</mx:Application>
